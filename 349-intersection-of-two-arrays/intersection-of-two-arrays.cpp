@@ -3,11 +3,27 @@ public:
     vector<int> intersection(vector<int>& nums1, vector<int>& nums2) {
         vector<int> res;
 
-        set<int> s1(nums1.begin(), nums1.end());
-        set<int> s2(nums2.begin(), nums2.end());
-        for (int elem : s1) {
-            if (s2.contains(elem)) {
-                res.push_back(elem);
+        sort(nums1.begin(), nums1.end());
+        sort(nums2.begin(), nums2.end());
+
+        int i = 0;
+        int j = 0;
+
+        while (i < nums1.size() && j < nums2.size()) {
+            int n1 = nums1[i];
+            int n2 = nums2[j];
+            if (n1 == n2) {
+                if (res.empty() || res.back() != n1) {
+                    res.push_back(n1);
+                } 
+                ++i;
+                ++j;
+            }
+            else if (n1 < n2) {
+                i++;
+            }
+            else {
+                j++;
             }
         }
 
